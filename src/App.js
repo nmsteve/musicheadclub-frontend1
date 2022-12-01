@@ -8,7 +8,7 @@ import { MUSICCLUB_ADDR, MUSICCLUB_ABI } from "./constants"
 const { ethereum } = window
 const provider = new ethers.providers.Web3Provider(ethereum)
 const signer = provider.getSigner()
-const MusicHeadClub = new ethers.Contract(MUSICCLUB_ADDR, MUSICCLUB_ABI, signer)
+const MusicHeadClub = new ethers.Contract(MUSICCLUB_ADDR, MUSICCLUB_ABI, provider)
 
 
 
@@ -31,6 +31,12 @@ function App() {
     //event.stopPropagation()
 
     const form = event.currentTarget
+
+    //connect if not connected
+    await ethereum.request({ method: 'eth_requestAccounts' })
+
+    const signer = provider.getSigner()
+    const MusicHeadClub = new ethers.Contract(MUSICCLUB_ADDR, MUSICCLUB_ABI, signer)
 
     const mintFee = await MusicHeadClub.mintFee()
     const mintAmount = form.mintAmount.value
