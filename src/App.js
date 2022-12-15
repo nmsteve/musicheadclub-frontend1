@@ -40,27 +40,29 @@ function App() {
 
       console.log(ethers.utils.hexlify(5))
       console.log(web3.utils.toHex(5))
-
-      try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: web3.utils.toHex(5) }]
-        })
-
-      } catch (error) {
-        console.error(error)
-
-      }
     }
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: web3.utils.toHex(5) }]
+      })
 
-    const signer = provider.getSigner()
-    const MusicHeadClub = new ethers.Contract(MUSICCLUB_ADDR, MUSICCLUB_ABI, signer)
 
-    const mintFee = await MusicHeadClub.mintFee()
-    const mintAmount = form.mintAmount.value
 
-    const tx = await MusicHeadClub.publicMint(mintAmount, { value: mintAmount * mintFee })
-    await tx.wait()
+      const signer = provider.getSigner()
+      const MusicHeadClub = new ethers.Contract(MUSICCLUB_ADDR, MUSICCLUB_ABI, signer)
+
+      const mintFee = await MusicHeadClub.mintFee()
+      const mintAmount = form.mintAmount.value
+
+      const tx = await MusicHeadClub.publicMint(mintAmount, { value: mintAmount * mintFee })
+      await tx.wait()
+
+
+    } catch (error) {
+      console.error(error.msg)
+
+    }
 
     //window.location.reload(false)
 
