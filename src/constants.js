@@ -1,4 +1,4 @@
-export const MUSICCLUB_ADDR = '0x7aEDbD9A0Df8Bf0ac73909A4FFa8454E950F886F'
+export const MUSICCLUB_ADDR = "0xf8A1B1a32970160c7ea8Db4d137D0034605221aB"
 
 export const MUSICCLUB_ABI = [
     {
@@ -676,4 +676,3 @@ export const MUSICCLUB_ABI = [
         "type": "function"
     }
 ]
-
